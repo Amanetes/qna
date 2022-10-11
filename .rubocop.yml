@@ -9,12 +9,20 @@ AllCops:
   NewCops: enable
   DisplayCopNames: true
   TargetRubyVersion: 3
+  ExtraDetails: true
   Exclude:
     - 'bin/**'
     - 'db/schema.rb'
     - 'db/migrate/**'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+  RSpec:
+    Patterns:
+      - '_spec.rb$'
+
+Lint/ShadowingOuterLocalVariable:
+  Exclude:
+    - 'spec/rails_helper.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false
