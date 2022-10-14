@@ -16,9 +16,9 @@ AllCops:
     - 'db/migrate/**'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-  RSpec:
-    Patterns:
-      - '_spec.rb$'
+
+RSpec:
+  Enabled: true
 
 Lint/ShadowingOuterLocalVariable:
   Exclude:
@@ -46,4 +46,7 @@ Metrics/BlockLength:
   Enabled: false
 
 Style/AsciiComments:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Enabled: false

@@ -15,7 +15,6 @@ require 'action_text/engine'
 require 'action_view/railtie'
 require 'action_cable/engine'
 require 'sprockets/railtie'
-# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -36,5 +35,16 @@ module Qna
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       request_specs: false,
+                       controller_specs: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
   end
 end
