@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :question do
-    title { 'MyString' }
-    body { 'MyText' }
+    title { Faker::Computer.platform }
+    body { Faker::Lorem.question }
+    association :user, factory: :user
   end
 
   factory :invalid_question, class: 'Question' do

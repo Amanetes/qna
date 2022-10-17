@@ -50,3 +50,9 @@ Style/AsciiComments:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 11

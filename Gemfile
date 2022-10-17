@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
@@ -18,10 +19,13 @@ gem 'webpacker', '~> 5.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
   gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :test do
+  gem 'capybara'
+  gem 'launchy'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
 end

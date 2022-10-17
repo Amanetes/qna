@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :answer do
-    body { 'MyText' }
+    body { Faker::Lorem.sentence }
     association :question, factory: :question
+    association :user, factory: :user
   end
 
   factory :invalid_answer, class: 'Answer' do

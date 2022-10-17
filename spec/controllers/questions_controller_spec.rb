@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:questions) { create_list(:question, 2) }
-  let(:question) { create(:question) }
+  let(:question) { create(:question, title: 'Lorem', body: 'Ipsum') }
+  let!(:user) { create(:user) }
 
   describe 'GET #index' do
     before { get(:index) }
@@ -35,7 +36,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    before { get(:new) }
+    before do
+      sign_in(user)
+      get(:new)
+    end
 
     it 'assigns a new Question to @question' do
       # То значение, которое находится в переменной question
@@ -49,7 +53,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    before { get(:edit, params: { id: question.id }) }
+    before do
+      sign_in(user)
+      get(:edit, params: { id: question.id })
+    end
 
     it 'assigns the requested question to @question' do
       expect(assigns(:question)).to eq(question)
@@ -61,6 +68,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    before { sign_in(user) }
+
     context 'with valid attributes' do
       let(:action) { post(:create, params: { question: attributes_for(:question) }) }
 
@@ -89,6 +98,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    before { sign_in(user) }
+
     context 'with valid attributes' do
       it 'assigns the requested question to @question' do
         post(:update, params: { id: question.id, question: attributes_for(:question) })
@@ -112,8 +123,8 @@ RSpec.describe QuestionsController, type: :controller do
       before { post(:update, params: { id: question.id, question: { title: 'new title', body: nil } }) }
 
       it 'does not change question attributes' do
-        expect(question.title).to eq('MyString')
-        expect(question.body).to eq('MyText')
+        expect(question.title).to eq('Lorem')
+        expect(question.body).to eq('Ipsum')
       end
 
       it 're-renders edit view' do
@@ -123,10 +134,12 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:question) { create(:question) } # Создаем объект, чтобы он существовал в базе
+    let!(:question) { create(:question, user: user) } # Создаем объект, чтобы он существовал в базе
+
+    before { sign_in(user) }
 
     it 'deletes question' do
-      expect { delete(:destroy, params: { id: question.id }) }.to change(Question, :count).by(-1)
+      expect { delete(:destroy, params: { id: question.id }) }.to change(user.questions, :count).by(-1)
     end
 
     it 'redirects to index view' do
