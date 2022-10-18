@@ -21,12 +21,15 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
   gem 'rspec-rails', '~> 6.0.0'
+  gem 'slim_lint'
 end
 
 group :test do
   gem 'capybara'
+  gem 'database_cleaner-active_record'
   gem 'launchy'
   gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
 end
 

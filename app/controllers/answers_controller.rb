@@ -10,9 +10,9 @@ class AnswersController < ApplicationController
     @answer.user = current_user
 
     if @answer.save
-      redirect_to @question, notice: 'Your answer successfully created.'
+      flash[:notice] = 'Your answer successfully created.'
     else
-      render 'questions/show', status: :unprocessable_entity
+      flash[:alert] = 'Cannot create an answer'
     end
   end
 

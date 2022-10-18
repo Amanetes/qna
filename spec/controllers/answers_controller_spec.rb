@@ -11,35 +11,35 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      let(:action) { post :create, params: { question_id: question.id, answer: attributes_for(:answer) } }
+      let(:action) { post :create, params: { question_id: question.id, answer: attributes_for(:answer), format: :js } }
 
       it 'saves the new answer in database' do
         expect { action }.to change(question.answers, :count).by(1)
       end
 
-      it 'redirects to question show view' do
+      it 'render create template' do
         action
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect(response).to render_template :create
       end
     end
 
     context 'with invalid params' do
-      let(:action) { post :create, params: { question_id: question.id, answer: attributes_for(:invalid_answer) } }
+      let(:action) { post :create, params: { question_id: question.id, answer: attributes_for(:invalid_answer), format: :js } }
 
       it 'does not save answer in database' do
-        expect { action }.not_to change(question.answers, :count)
+        expect { action }.not_to change(Answer, :count)
       end
 
       it 're-renders question show view' do
         action
-        expect(response).to render_template(:show)
+        expect(response).to render_template(:create)
       end
     end
   end
 
   describe 'DELETE #destroy' do
     let!(:question) { create(:question, user: user) }
-    let!(:answer) { create(:answer, question: question, user: user)}
+    let!(:answer) { create(:answer, question: question, user: user) }
 
     before { sign_in(user) }
 

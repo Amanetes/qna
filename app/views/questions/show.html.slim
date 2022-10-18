@@ -1,15 +1,14 @@
-= @question.title
-= @question.body
+h1 = @question.title
+p = @question.body
 
-.row
-  - @answers.each do |answer|
-    = answer.body
+.answers
+  = render 'answers'
 
-= form_with(model: [ @question, @answer ]) do |f|
+= form_with(model: [@question, @answer], local: false) do |f|
   - if @answer.errors.any?
     - @answer.errors.full_messages.each do |msg|
       = msg
-  = f.label :body
+  = f.label :body, 'Your answer'
   = f.text_area :body
 
   = f.submit 'Create'
