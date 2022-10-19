@@ -5,10 +5,9 @@ p = @question.body
   = render 'answers'
 
 = form_with(model: [@question, @answer], local: false) do |f|
-  - if @answer.errors.any?
-    - @answer.errors.full_messages.each do |msg|
-      = msg
-  = f.label :body, 'Your answer'
-  = f.text_area :body
+  p
+    = f.label :body, 'Your answer'
+    .answer-errors
+    = f.text_area :body
 
   = f.submit 'Create'
